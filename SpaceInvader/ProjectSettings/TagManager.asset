@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SkyboxCamera
+  - Nave1
+  - Nave2
+  - Nave3
   layers:
   - Default
   - TransparentFX
