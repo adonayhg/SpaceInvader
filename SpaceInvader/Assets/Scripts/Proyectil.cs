@@ -16,9 +16,9 @@ public class Proyectil : MonoBehaviour
         transform.Translate(direccion * speed * Time.deltaTime);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Nave1"))
+        if (other.gameObject.CompareTag("Nave1"))
         {
             SceneManager.LoadScene("JuegoNave1");
         }

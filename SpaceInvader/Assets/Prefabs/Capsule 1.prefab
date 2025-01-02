@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 696059123453427726}
   - component: {fileID: 4177706134343890510}
   - component: {fileID: 1143747337820804385}
-  - component: {fileID: 4541045399383896787}
   - component: {fileID: -8539336134948272316}
+  - component: {fileID: 6492847417387252690}
   m_Layer: 0
   m_Name: Capsule 1
   m_TagString: Untagged
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a8b27b90b4d0434409ef13f43219c4d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,19 +109,6 @@ CapsuleCollider:
   m_Height: 1.0573515
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.013730284}
---- !u!114 &4541045399383896787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9147232516841092824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c455a7359e19a042b603069f6b68bbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
 --- !u!54 &-8539336134948272316
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,3 +136,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &6492847417387252690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9147232516841092824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c455a7359e19a042b603069f6b68bbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
