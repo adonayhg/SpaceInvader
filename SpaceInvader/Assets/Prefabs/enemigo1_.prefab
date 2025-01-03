@@ -120,7 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3cb1758e2ba53c45bb1e8a9a8f4ca1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 0}
   filas: 3
   columnas: 5
   velocidadInicial: 2
