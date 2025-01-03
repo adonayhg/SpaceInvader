@@ -71,5 +71,64 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba956d7f94be006419c628b50cafb965,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5766037691263524987}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba956d7f94be006419c628b50cafb965,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3103227364753513959}
   m_SourcePrefab: {fileID: 100100000, guid: ba956d7f94be006419c628b50cafb965, type: 3}
+--- !u!1 &2360818766251094150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ba956d7f94be006419c628b50cafb965,
+    type: 3}
+  m_PrefabInstance: {fileID: 3171160829256388055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &-5766037691263524987
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360818766251094150}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5124564
+  m_Center: {x: -0.000000834465, y: -0.114103556, z: -0.000000834465}
+--- !u!114 &-3103227364753513959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360818766251094150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3cb1758e2ba53c45bb1e8a9a8f4ca1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs: []
+  filas: 3
+  columnas: 5
+  velocidadInicial: 2
+  aumentoVelocidad: 0.1
+  distanciaMovimientos: 0.5
+  intervaloDisparo: 1
+  espacioEnemigos: {x: 1, y: 1}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  proyectilPrefab: {fileID: 0}

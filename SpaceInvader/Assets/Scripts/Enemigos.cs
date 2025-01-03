@@ -41,15 +41,14 @@ public class Enemigos : MonoBehaviour
         enemigosRestantes = filas * columnas;
 
         // Definir la posición inicial base para los enemigos
-        float startX = -38f; // Cambiar este valor para mover los enemigos en X
-        float startY = 3f;   // Cambiar este valor para mover los enemigos en Y
-        float startZ = 8f;   // Cambiar este valor para mover los enemigos en Z
+        float startX = -38f;
+        float startY = 3f;
+        float startZ = 8f;
 
         for (int fila = 0; fila < filas; fila++)
         {
             for (int columna = 0; columna < columnas; columna++)
             {
-                // Ajustar la posición de los enemigos con el desplazamiento inicial
                 Vector3 posicion = new Vector3(
                     startX + columna * espacioEnemigos.x - (columnas - 1) * espacioEnemigos.x / 2.0f,
                     startY,
@@ -58,6 +57,10 @@ public class Enemigos : MonoBehaviour
 
                 int tipoEnemigo = Random.Range(0, enemyPrefabs.Length);
                 GameObject enemigo = Instantiate(enemyPrefabs[tipoEnemigo], posicion, Quaternion.identity);
+
+                // Reducir el tamaño del enemigo al 50% del tamaño original
+                enemigo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+
                 enemigos[fila, columna] = enemigo;
             }
         }
@@ -125,7 +128,7 @@ public class Enemigos : MonoBehaviour
                 if (enemigos[fila, columna] != null)
                 {
                     // Esperar un tiempo aleatorio antes de disparar
-                    StartCoroutine(DisparoConRetraso(enemigos[fila, columna], Random.Range(1f, 5f)));
+                    StartCoroutine(DisparoConRetraso(enemigos[fila, columna], Random.Range(0.1f, 5f)));
                     break; // Salir del bucle para esta columna después de que el enemigo más bajo dispare
                 }
             }
@@ -151,6 +154,7 @@ public class Enemigos : MonoBehaviour
         Instantiate(proyectilPrefab, posicionDisparo, Quaternion.identity);
     }
 
+
     public void EnemigoDestruido(GameObject enemigo)
     {
         for (int fila = 0; fila < filas; fila++)
@@ -161,6 +165,10 @@ public class Enemigos : MonoBehaviour
                 {
                     enemigos[fila, columna] = null;
                     enemigosRestantes--;
+
+                    // Sumar puntos
+                    SistemaDeJuego.instancia.AgregarPuntos(10);
+
                     velocidadActual += aumentoVelocidad;
                     Destroy(enemigo);
                     return;
@@ -168,4 +176,18 @@ public class Enemigos : MonoBehaviour
             }
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ProyectilJugador"))
+        {
+            // Sumar puntos al destruir el enemigo
+            SistemaDeJuego.instancia.AgregarPuntos(10);
+
+            // Destruir el enemigo y el proyectil
+            Destroy(other.gameObject); // Proyectil
+            Destroy(gameObject);       // Enemigo
+        }
+    }
+
 }

@@ -12,9 +12,4 @@ public class ProyectilEnemigo : MonoBehaviour
         transform.Translate(new Vector3(0,0,-1) * velocidad * Time.deltaTime);
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        // Si el proyectil colide con algo, destrúyelo
-        Destroy(gameObject);
-    }
 }

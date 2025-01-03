@@ -8,6 +8,9 @@ TagManager:
   - Nave1
   - Nave2
   - Nave3
+  - Jugador
+  - ProyectilEnemigo
+  - ProyectilJugador
   layers:
   - Default
   - TransparentFX

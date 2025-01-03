@@ -5,31 +5,40 @@ using UnityEngine;
 public class Jugador : MonoBehaviour
 {
     public float speed = 20f;
+    public GameObject proyectilPrefab;
+    public Transform puntoDisparo;
+    public Transform puntoDisparo2;
 
     void Update()
     {
+        // Movimiento del jugador
         float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
-
-        Vector3 direction = new Vector3(horizontal, 0/*, vertical*/);
-
+        Vector3 direction = new Vector3(horizontal, 0, 0);
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
+        // Disparo de proyectiles
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Disparar();
         }
     }
 
-    public GameObject proyectilPrefab;
-    public Transform puntoDisparo;
-    public Transform puntoDisparo2;
-
-
-
     void Disparar()
     {
-        GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo.position, puntoDisparo.rotation);
-        GameObject proyectil2 = Instantiate(proyectilPrefab, puntoDisparo2.position, puntoDisparo2.rotation);
+        Instantiate(proyectilPrefab, puntoDisparo.position, puntoDisparo.rotation);
+        Instantiate(proyectilPrefab, puntoDisparo2.position, puntoDisparo2.rotation);
+    }
+
+    // Detectar colisiones con proyectiles enemigos
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ProyectilEnemigo"))
+        {
+            // Reducir una vida al jugador
+            SistemaDeJuego.instancia.PerderVida();
+
+            // Destruir el proyectil enemigo
+            Destroy(other.gameObject);
+        }
     }
 }
