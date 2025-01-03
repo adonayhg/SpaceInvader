@@ -23,11 +23,13 @@ public class Jugador : MonoBehaviour
 
     public GameObject proyectilPrefab;
     public Transform puntoDisparo;
+    public Transform puntoDisparo2;
+
 
 
     void Disparar()
     {
         GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo.position, puntoDisparo.rotation);
-
+        GameObject proyectil2 = Instantiate(proyectilPrefab, puntoDisparo2.position, puntoDisparo2.rotation);
     }
 }

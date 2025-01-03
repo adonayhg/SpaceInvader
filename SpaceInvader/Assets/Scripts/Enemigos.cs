@@ -1,128 +1,171 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Enemigos : MonoBehaviour
 {
-    private float movementSpeed = 2.0f; // Velocidad de movimiento
-    private bool movingForward = true; // Dirección del movimiento en Z
+    public GameObject[] enemyPrefabs; // Array para los prefabs de enemigos
+    public int filas = 3;
+    public int columnas = 5;
+    public float velocidadInicial = 2f;
+    public float aumentoVelocidad = 0.1f;
+    public float distanciaMovimientos = 0.5f;
+    public float intervaloDisparo = 1.0f;
+    public Vector2 espacioEnemigos = new Vector2(1.0f, 1.0f); // Espacio entre enemigos (x: columnas, y: filas)
+    public LayerMask wallLayer; // LayerMask para las paredes
 
-    [SerializeField]
-    int totalColumns = 5; // Número de columnas
-    [SerializeField]
-    int totalRows = 3; // Número de filas
-    [SerializeField]
-    float initialPosX = -7.5f; // Posición inicial en X
-    [SerializeField]
-    float initialPosZ = 10.0f; // Posición inicial en Z
-    [SerializeField]
-    float spaceBetweenElementsX = 2.5f; // Espaciado entre enemigos en X
-    [SerializeField]
-    float spaceBetweenElementsZ = 2.0f; // Espaciado entre enemigos en Z
-    [SerializeField]
-    GameObject[] enemyPrefabs; // Array de modelos de enemigos (diferentes prefabs)
+    private GameObject[,] enemigos;
+    private float direccionMovimiento = 1.0f; // 1 para derecha, -1 para izquierda
+    private float velocidadActual;
+    private int enemigosRestantes;
+    private bool debeCaer = false;
 
-    private List<List<GameObject>> enemyMatrix = new List<List<GameObject>>(); // Matriz para almacenar enemigos
+    public GameObject proyectilPrefab; // Prefab del proyectil
 
     void Start()
     {
-        GenerarEnemigos();
-    }
-
-    void GenerarEnemigos()
-    {
-        // Crear la cuadrícula de enemigos
-        for (int column = 0; column < totalColumns; column++)
-        {
-            enemyMatrix.Add(new List<GameObject>());
-            for (int row = 0; row < totalRows; row++)
-            {
-                // Calcular la posición de cada enemigo
-                Vector3 position = new Vector3(
-                    initialPosX + column * spaceBetweenElementsX, // Distribución en X
-                    0.0f,                                        // Altura constante en Y
-                    initialPosZ - row * spaceBetweenElementsZ   // Distribución en Z
-                );
-
-                // Seleccionar un prefab de enemigo aleatoriamente
-                int prefabIndex = Random.Range(0, enemyPrefabs.Length);
-                GameObject enemyPrefab = enemyPrefabs[prefabIndex];
-
-                // Instanciar y nombrar el enemigo
-                GameObject enemy = Instantiate(enemyPrefab, position, Quaternion.identity);
-                enemy.name = $"Enemy({column},{row})";
-
-                // Asignar como hijo del controlador
-                enemy.transform.parent = this.transform;
-
-                // Agregar enemigo a la matriz
-                enemyMatrix[column].Add(enemy);
-            }
-        }
+        velocidadActual = velocidadInicial;
+        InicioEnemigos();
+        InvokeRepeating(nameof(MetodoDisparoEnemigo), intervaloDisparo, intervaloDisparo);
     }
 
     void Update()
     {
-        MoverEnemigos();
+        MovimientoEnemigos();
     }
 
-    void MoverEnemigos()
+    void InicioEnemigos()
     {
-        // Mover a todos los enemigos en el eje Z
-        float movementZ = movementSpeed * Time.deltaTime * (movingForward ? 1 : -1);
-        transform.Translate(0, 0, movementZ);
+        enemigos = new GameObject[filas, columnas];
+        enemigosRestantes = filas * columnas;
 
-        // Verificar los límites de movimiento
-        foreach (Transform enemy in transform)
+        // Definir la posición inicial base para los enemigos
+        float startX = -38f; // Cambiar este valor para mover los enemigos en X
+        float startY = 3f;   // Cambiar este valor para mover los enemigos en Y
+        float startZ = 8f;   // Cambiar este valor para mover los enemigos en Z
+
+        for (int fila = 0; fila < filas; fila++)
         {
-            if (!enemy.gameObject.activeSelf) continue; // Ignorar enemigos desactivados
-
-            // Si alcanzan un límite, cambiar de dirección
-            if (movingForward && enemy.position.z >= 15.0f) // Límite superior en Z
+            for (int columna = 0; columna < columnas; columna++)
             {
-                CambiarDireccion();
-                break;
-            }
-            else if (!movingForward && enemy.position.z <= 5.0f) // Límite inferior en Z
-            {
-                CambiarDireccion();
-                break;
-            }
-        }
-    }
+                // Ajustar la posición de los enemigos con el desplazamiento inicial
+                Vector3 posicion = new Vector3(
+                    startX + columna * espacioEnemigos.x - (columnas - 1) * espacioEnemigos.x / 2.0f,
+                    startY,
+                    startZ + fila * espacioEnemigos.y
+                );
 
-    void CambiarDireccion()
-    {
-        movingForward = !movingForward; // Cambiar la dirección
-    }
-
-    public void DestruirEnemigo(int column, int row)
-    {
-        // Destruir o desactivar un enemigo específico en la matriz
-        if (column >= 0 && column < totalColumns && row >= 0 && row < totalRows)
-        {
-            GameObject enemy = enemyMatrix[column][row];
-            if (enemy != null)
-            {
-                enemy.SetActive(false);
-                Debug.Log($"Enemigo destruido: {enemy.name}");
+                int tipoEnemigo = Random.Range(0, enemyPrefabs.Length);
+                GameObject enemigo = Instantiate(enemyPrefabs[tipoEnemigo], posicion, Quaternion.identity);
+                enemigos[fila, columna] = enemigo;
             }
         }
     }
 
-    public Transform ObtenerEnemigoFilaInferior()
+    void MovimientoEnemigos()
     {
-        // Obtener un enemigo activo de la fila inferior de cada columna
-        foreach (var column in enemyMatrix)
+        float pasoMovimiento = velocidadActual * Time.deltaTime;
+
+        foreach (GameObject enemigo in enemigos)
         {
-            for (int i = column.Count - 1; i >= 0; i--) // Recorrer de abajo hacia arriba
+            if (enemigo != null)
             {
-                if (column[i] != null && column[i].activeSelf)
+                // Verificar si hay colisión con la pared antes de mover
+                if (!IsAtWall(enemigo.transform.position, direccionMovimiento))
                 {
-                    return column[i].transform; // Retorna el primer enemigo activo
+                    enemigo.transform.position += Vector3.right * direccionMovimiento * pasoMovimiento;
+                }
+                else
+                {
+                    debeCaer = true;
+                }
+
+                Vector3 posicionPantalla = Camera.main.WorldToScreenPoint(enemigo.transform.position);
+                if ((direccionMovimiento > 0 && posicionPantalla.x >= Screen.width) || (direccionMovimiento < 0 && posicionPantalla.x <= 0))
+                {
+                    debeCaer = true;
                 }
             }
         }
-        return null;
+
+        if (debeCaer)
+        {
+            foreach (GameObject enemigo in enemigos)
+            {
+                if (enemigo != null)
+                {
+                    enemigo.transform.position += new Vector3(0, 0, -1) * distanciaMovimientos;
+                }
+            }
+            direccionMovimiento *= -1;
+            debeCaer = false;
+        }
+    }
+
+    bool IsAtWall(Vector3 posicion, float direccion)
+    {
+        // Realizar un raycast para verificar si hay una pared delante
+        Vector3 direccionRayo = direccion > 0 ? Vector3.right : Vector3.left;
+        RaycastHit hit;
+        if (Physics.Raycast(posicion, direccionRayo, out hit, 1f, wallLayer))
+        {
+            return true; // Pared detectada
+        }
+        return false;
+    }
+
+    void MetodoDisparoEnemigo()
+    {
+        for (int columna = 0; columna < columnas; columna++)
+        {
+            // Recorrer las filas desde la fila más baja hacia arriba
+            for (int fila = 0; fila < filas; fila++)
+            {
+                if (enemigos[fila, columna] != null)
+                {
+                    // Esperar un tiempo aleatorio antes de disparar
+                    StartCoroutine(DisparoConRetraso(enemigos[fila, columna], Random.Range(1f, 5f)));
+                    break; // Salir del bucle para esta columna después de que el enemigo más bajo dispare
+                }
+            }
+        }
+    }
+
+    IEnumerator DisparoConRetraso(GameObject enemigo, float retraso)
+    {
+        yield return new WaitForSeconds(retraso);
+
+        if (enemigo != null) // Verificar si el enemigo sigue vivo antes de disparar
+        {
+            DisparoEnemigo(enemigo);
+        }
+    }
+
+    void DisparoEnemigo(GameObject enemigo)
+    {
+        // Usar el centro del enemigo como la posición de disparo
+        Vector3 posicionDisparo = enemigo.transform.position;
+
+        // Instanciar el proyectil en la posición del centro del enemigo
+        Instantiate(proyectilPrefab, posicionDisparo, Quaternion.identity);
+    }
+
+    public void EnemigoDestruido(GameObject enemigo)
+    {
+        for (int fila = 0; fila < filas; fila++)
+        {
+            for (int columna = 0; columna < columnas; columna++)
+            {
+                if (enemigos[fila, columna] == enemigo)
+                {
+                    enemigos[fila, columna] = null;
+                    enemigosRestantes--;
+                    velocidadActual += aumentoVelocidad;
+                    Destroy(enemigo);
+                    return;
+                }
+            }
+        }
     }
 }
