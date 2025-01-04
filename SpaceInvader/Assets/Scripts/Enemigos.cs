@@ -58,8 +58,31 @@ public class Enemigos : MonoBehaviour
                 int tipoEnemigo = Random.Range(0, enemyPrefabs.Length);
                 GameObject enemigo = Instantiate(enemyPrefabs[tipoEnemigo], posicion, Quaternion.identity);
 
-                // Reducir el tamaño del enemigo al 50% del tamaño original
-                enemigo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                if (tipoEnemigo == 0)
+                {
+                    enemigo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                    enemigo.transform.rotation = Quaternion.Euler(0, -90, 90);
+
+                }
+                if (tipoEnemigo == 1)
+                {
+                    enemigo.transform.localScale = new Vector3(0.36f, 0.36f, 0.36f);
+                }
+                if (tipoEnemigo == 2)
+                {
+                    enemigo.transform.rotation = Quaternion.Euler(0, -180, 0);
+                    enemigo.transform.position = new Vector3(
+                        enemigo.transform.position.x,
+                        0, // Posición Y fija en 0
+                        enemigo.transform.position.z
+                    );
+                }
+                if (tipoEnemigo == 3)
+                {
+                    enemigo.transform.rotation = Quaternion.Euler(0, -180, 0);
+
+                }
+
 
                 enemigos[fila, columna] = enemigo;
             }
@@ -176,18 +199,4 @@ public class Enemigos : MonoBehaviour
             }
         }
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("ProyectilJugador"))
-        {
-            // Sumar puntos al destruir el enemigo
-            SistemaDeJuego.instancia.AgregarPuntos(10);
-
-            // Destruir el enemigo y el proyectil
-            Destroy(other.gameObject); // Proyectil
-            Destroy(gameObject);       // Enemigo
-        }
-    }
-
 }

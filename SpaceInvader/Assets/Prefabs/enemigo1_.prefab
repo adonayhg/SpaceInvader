@@ -79,7 +79,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba956d7f94be006419c628b50cafb965,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3103227364753513959}
+      addedObject: {fileID: -5292575090258373837}
   m_SourcePrefab: {fileID: 100100000, guid: ba956d7f94be006419c628b50cafb965, type: 3}
 --- !u!1 &2360818766251094150 stripped
 GameObject:
@@ -108,7 +108,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.5124564
   m_Center: {x: -0.000000834465, y: -0.114103556, z: -0.000000834465}
---- !u!114 &-3103227364753513959
+--- !u!114 &-5292575090258373837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,19 +117,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2360818766251094150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3cb1758e2ba53c45bb1e8a9a8f4ca1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 438a2fba99a7e9b47b5bedd03b7b302e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 0}
-  filas: 3
-  columnas: 5
-  velocidadInicial: 2
-  aumentoVelocidad: 0.1
-  distanciaMovimientos: 0.5
-  intervaloDisparo: 1
-  espacioEnemigos: {x: 1, y: 1}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  proyectilPrefab: {fileID: 0}
+  puntos: 10

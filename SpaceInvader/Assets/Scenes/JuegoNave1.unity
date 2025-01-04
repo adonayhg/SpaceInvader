@@ -719,6 +719,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bunker 2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 16a79a175986e2d49966cd7dc396aef9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -818,6 +823,8 @@ MonoBehaviour:
     type: 3}
   puntoDisparo: {fileID: 245359194}
   puntoDisparo2: {fileID: 1736325520}
+  tiempoEntreDisparos: 0.5
+  invertirControles: 0
 --- !u!4 &418455959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1691638981495381666, guid: a893239851fe90d43a2eda1263336ee0,
@@ -1098,6 +1105,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bunker 3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 16a79a175986e2d49966cd7dc396aef9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1286,6 +1298,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957829805}
   m_CullTransparentMesh: 1
+--- !u!1 &1007220016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007220018}
+  - component: {fileID: 1007220017}
+  m_Layer: 0
+  m_Name: PowerUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1007220017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007220016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d7cca94ec95754397252abd8191058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpPrefabs:
+  - {fileID: 6938215215302858132, guid: 8afd4f98ed12e084fb3f5a12adacc63e, type: 3}
+  - {fileID: 8165618353857212670, guid: e0a4549c2a38a1c40887b51ae33b6f68, type: 3}
+  - {fileID: 7365878572395144887, guid: 7b6da9ec1134bfd459078c18ea91f577, type: 3}
+  - {fileID: 4668718418448528318, guid: bc6126327df4c9c4fa32d6c91f628e36, type: 3}
+  dropChance: 30
+--- !u!4 &1007220018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007220016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 74.752846, y: -74.577705, z: 52.624355}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1124317321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,8 +1482,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puntos: 0
   vidas: 5
-  textoPuntos: {fileID: 0}
-  textoVidas: {fileID: 0}
+  textoPuntos: {fileID: 7735572}
+  textoVidas: {fileID: 957829807}
 --- !u!4 &1189808467
 Transform:
   m_ObjectHideFlags: 0
@@ -1618,16 +1680,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 2360818766251094150, guid: 5d2866b352ac03c418b335f10503786d, type: 3}
-  - {fileID: 2360818766251094150, guid: 5d2866b352ac03c418b335f10503786d, type: 3}
-  - {fileID: 2360818766251094150, guid: 5d2866b352ac03c418b335f10503786d, type: 3}
-  - {fileID: 2360818766251094150, guid: 5d2866b352ac03c418b335f10503786d, type: 3}
-  filas: 4
-  columnas: 6
+  - {fileID: 4203625107718922951, guid: f855b6066258a174e907ec4b964d8243, type: 3}
+  - {fileID: 5359368407019832555, guid: 622fac2cdb0693142aff89e8adbe9bfa, type: 3}
+  - {fileID: 1801617920142681882, guid: c0cb0834094121d439f0a9fbc2a9bcc7, type: 3}
+  filas: 3
+  columnas: 5
   velocidadInicial: 2
   aumentoVelocidad: 0.1
   distanciaMovimientos: 0.5
   intervaloDisparo: 6
-  espacioEnemigos: {x: 4, y: 5}
+  espacioEnemigos: {x: 5, y: 5}
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1798,3 +1860,4 @@ SceneRoots:
   - {fileID: 285826215}
   - {fileID: 375438295}
   - {fileID: 666620425}
+  - {fileID: 1007220018}

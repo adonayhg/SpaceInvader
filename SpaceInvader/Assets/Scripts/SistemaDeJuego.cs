@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class SistemaDeJuego : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class SistemaDeJuego : MonoBehaviour
 
     public int puntos = 0; // Puntos acumulados del jugador
     public int vidas = 5;  // Vidas iniciales de la nave
-    public Text textoPuntos; // Texto en la UI para mostrar los puntos (opcional)
-    public Text textoVidas;  // Texto en la UI para mostrar las vidas (opcional)
+    public TMP_Text textoPuntos; // Texto en la UI para mostrar los puntos (opcional)
+    public TMP_Text textoVidas;  // Texto en la UI para mostrar las vidas (opcional)
 
     void Awake()
     {
