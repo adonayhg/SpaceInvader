@@ -11,6 +11,7 @@ TagManager:
   - Jugador
   - ProyectilEnemigo
   - ProyectilJugador
+  - Bunker
   layers:
   - Default
   - TransparentFX

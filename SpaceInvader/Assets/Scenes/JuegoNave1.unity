@@ -565,6 +565,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bunker
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 16a79a175986e2d49966cd7dc396aef9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bunker
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -723,6 +728,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 16a79a175986e2d49966cd7dc396aef9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bunker
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1110,6 +1120,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 16a79a175986e2d49966cd7dc396aef9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bunker
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1332,7 +1347,7 @@ MonoBehaviour:
   - {fileID: 8165618353857212670, guid: e0a4549c2a38a1c40887b51ae33b6f68, type: 3}
   - {fileID: 7365878572395144887, guid: 7b6da9ec1134bfd459078c18ea91f577, type: 3}
   - {fileID: 4668718418448528318, guid: bc6126327df4c9c4fa32d6c91f628e36, type: 3}
-  dropChance: 30
+  dropChance: 50
 --- !u!4 &1007220018
 Transform:
   m_ObjectHideFlags: 0

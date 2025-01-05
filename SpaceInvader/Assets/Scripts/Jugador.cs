@@ -58,46 +58,34 @@ public class Jugador : MonoBehaviour
     // Métodos para manejar los efectos de los power-ups
     public void ActivarInvertirControles(float duracion)
     {
-        StartCoroutine(InvertirControles(duracion));
+        invertirControles = true;
+        Invoke(nameof(DesactivarInvertirControles), duracion);
+    }
+
+    void DesactivarInvertirControles()
+    {
+        invertirControles = false;
     }
 
     public void ActivarDisparoMasRapido(float duracion)
     {
-        StartCoroutine(DisparoMasRapido(duracion));
+        tiempoEntreDisparos /= 2; // Reducir a la mitad el tiempo entre disparos
+        Invoke(nameof(DesactivarDisparoMasRapido), duracion);
+    }
+
+    void DesactivarDisparoMasRapido()
+    {
+        tiempoEntreDisparos *= 2; // Restaurar el tiempo normal entre disparos
     }
 
     public void ActivarVelocidadAumentada(float duracion)
     {
-        StartCoroutine(MoverseMasRapido(duracion));
+        speed *= 2; // Duplica la velocidad
+        Invoke(nameof(DesactivarVelocidadAumentada), duracion);
     }
 
-    // Corrutina para invertir los controles
-    private System.Collections.IEnumerator InvertirControles(float duracion)
+    void DesactivarVelocidadAumentada()
     {
-        invertirControles = true;
-        Debug.Log("¡Controles invertidos!");
-        yield return new WaitForSeconds(duracion);
-        invertirControles = false;
-        Debug.Log("Controles restaurados.");
-    }
-
-    // Corrutina para disparar más rápido
-    private System.Collections.IEnumerator DisparoMasRapido(float duracion)
-    {
-        tiempoEntreDisparos /= 2; // Reducir el tiempo entre disparos a la mitad
-        Debug.Log("¡Disparo más rápido activado!");
-        yield return new WaitForSeconds(duracion);
-        tiempoEntreDisparos *= 2; // Restaurar el tiempo normal entre disparos
-        Debug.Log("Disparo más rápido desactivado.");
-    }
-
-    // Corrutina para moverse más rápido
-    private System.Collections.IEnumerator MoverseMasRapido(float duracion)
-    {
-        speed *= 2; // Duplica la velocidad del jugador
-        Debug.Log("¡Velocidad aumentada!");
-        yield return new WaitForSeconds(duracion);
         speed /= 2; // Restaurar la velocidad normal
-        Debug.Log("Velocidad restaurada.");
     }
 }

@@ -24,41 +24,62 @@ public class PowerUp : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Jugador")) // Detecta colisión con el jugador
+        // Detectar colisión con el jugador
+        if (other.CompareTag("Jugador"))
         {
-            ActivarEfecto();
-            Destroy(gameObject); // Destruir el power-up después de recogerlo
+            ActivarEfecto(other.gameObject); // Pasar el GameObject del jugador
+            Destroy(gameObject); // Destruir el power-up después de activarlo
         }
     }
 
-    void ActivarEfecto()
+
+    void ActivarEfecto(GameObject jugador)
     {
+        // Obtener el script del jugador para aplicar los efectos
+        Jugador scriptJugador = jugador.GetComponent<Jugador>();
+        if (scriptJugador == null)
+        {
+            Debug.LogWarning("No se encontró el script Jugador en el objeto colisionado.");
+            return;
+        }
+
         switch (tipoPowerUp)
         {
             case TipoPowerUp.RepararBunkers:
                 RepararBunkers();
                 break;
             case TipoPowerUp.InvertirControles:
-                StartCoroutine(InvertirControles());
+                scriptJugador.ActivarInvertirControles(duracion);
                 break;
             case TipoPowerUp.DispararMasRapido:
-                StartCoroutine(DispararMasRapido());
+                scriptJugador.ActivarDisparoMasRapido(duracion);
                 break;
             case TipoPowerUp.MoverseMasRapido:
-                StartCoroutine(MoverseMasRapido());
+                scriptJugador.ActivarVelocidadAumentada(duracion);
                 break;
         }
     }
 
     void RepararBunkers()
     {
-        /*// Encuentra todos los búnkers en la escena y los "repara" restaurando su vida
-        Bunker[] bunkers = FindObjectsOfType<Bunker>();
-        foreach (Bunker bunker in bunkers)
+        // Encuentra todos los objetos con el script Bunkers en la escena
+        Bunkers[] todosLosBunkers = FindObjectsOfType<Bunkers>();
+
+        // Si no hay búnkers, muestra un mensaje
+        if (todosLosBunkers.Length == 0)
         {
-            bunker.vidas = 5; // Restaura las vidas del búnker
+            Debug.LogWarning("No se encontraron búnkers en la escena.");
+            return;
         }
-        Debug.Log("¡Todos los búnkers han sido reparados!");*/
+
+        // Repara cada búnker
+        foreach (Bunkers bunker in todosLosBunkers)
+        {
+            bunker.RecuperarBunkers(); // Llama al método para restaurar los búnkers
+        }
+
+        Debug.Log("¡Todos los búnkers han sido reparados!");
+
     }
 
     System.Collections.IEnumerator InvertirControles()

@@ -24,6 +24,15 @@ public class Bunkers : MonoBehaviour
     }
     void DestruirBunker()
     {
-        bunker.SetActive(false);
+        // Desactivar solo la representación visual y las colisiones
+        bunker.GetComponent<MeshRenderer>().enabled = false; // Desactivar el renderizado
+        bunker.GetComponent<Collider>().enabled = false;     // Desactivar el collider
+    }
+
+    public void RecuperarBunkers()
+    {
+        vidas = 5;
+        bunker.GetComponent<MeshRenderer>().enabled = true;
+        bunker.GetComponent<Collider>().enabled = true;
     }
 }

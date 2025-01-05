@@ -178,7 +178,7 @@ public class Enemigos : MonoBehaviour
     }
 
 
-    public void EnemigoDestruido(GameObject enemigo)
+    void EnemigoDestruido(GameObject enemigo)
     {
         for (int fila = 0; fila < filas; fila++)
         {
@@ -189,8 +189,8 @@ public class Enemigos : MonoBehaviour
                     enemigos[fila, columna] = null;
                     enemigosRestantes--;
 
-                    // Sumar puntos
-                    SistemaDeJuego.instancia.AgregarPuntos(10);
+                    // Intentar soltar un power-up
+                    FindObjectOfType<PowerUpManager>().IntentarSoltarPowerUp(enemigo.transform.position);
 
                     velocidadActual += aumentoVelocidad;
                     Destroy(enemigo);
