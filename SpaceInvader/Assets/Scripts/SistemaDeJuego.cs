@@ -12,6 +12,7 @@ public class SistemaDeJuego : MonoBehaviour
     public int vidas = 5;  // Vidas iniciales de la nave
     public TMP_Text textoPuntos; // Texto en la UI para mostrar los puntos (opcional)
     public TMP_Text textoVidas;  // Texto en la UI para mostrar las vidas (opcional)
+    public GameObject pantallaGameOver;
 
     void Awake()
     {
@@ -29,6 +30,7 @@ public class SistemaDeJuego : MonoBehaviour
     void Start()
     {
         ActualizarUI();
+        pantallaGameOver.SetActive(false);
     }
 
     // Método para sumar puntos al jugador
@@ -46,9 +48,7 @@ public class SistemaDeJuego : MonoBehaviour
 
         if (vidas <= 0)
         {
-            // Reiniciar la escena si se terminan las vidas
-            Debug.Log("¡Juego Terminado!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            pantallaGameOver.SetActive(true);
         }
     }
 
@@ -64,5 +64,6 @@ public class SistemaDeJuego : MonoBehaviour
             textoVidas.text = "Vidas: " + vidas;
         }
     }
+
 }
 

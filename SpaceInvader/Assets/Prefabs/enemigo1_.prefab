@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  enemigos: {fileID: 0}

@@ -22,12 +22,23 @@ public class Enemigos : MonoBehaviour
     private bool debeCaer = false;
 
     public GameObject proyectilPrefab; // Prefab del proyectil
+    public GameObject PantallaGanar;
 
     void Start()
     {
+
         velocidadActual = velocidadInicial;
         InicioEnemigos();
+
+        enemigosRestantes = filas * columnas;
+        Debug.Log("Enemigos restantes al inicio: " + enemigosRestantes);
+
         InvokeRepeating(nameof(MetodoDisparoEnemigo), intervaloDisparo, intervaloDisparo);
+
+        if (PantallaGanar != null)
+        {
+            PantallaGanar.SetActive(false);
+        }
     }
 
     void Update()
@@ -57,6 +68,7 @@ public class Enemigos : MonoBehaviour
 
                 int tipoEnemigo = Random.Range(0, enemyPrefabs.Length);
                 GameObject enemigo = Instantiate(enemyPrefabs[tipoEnemigo], posicion, Quaternion.identity);
+                enemigos[fila, columna] = enemigo;
 
                 if (tipoEnemigo == 0)
                 {
@@ -82,9 +94,6 @@ public class Enemigos : MonoBehaviour
                     enemigo.transform.rotation = Quaternion.Euler(0, -180, 0);
 
                 }
-
-
-                enemigos[fila, columna] = enemigo;
             }
         }
     }
@@ -178,8 +187,9 @@ public class Enemigos : MonoBehaviour
     }
 
 
-    void EnemigoDestruido(GameObject enemigo)
+    public void EnemigoDestruido(GameObject enemigo)
     {
+        Debug.Log("Función EnemigoDestruido llamada");
         for (int fila = 0; fila < filas; fila++)
         {
             for (int columna = 0; columna < columnas; columna++)
@@ -187,16 +197,31 @@ public class Enemigos : MonoBehaviour
                 if (enemigos[fila, columna] == enemigo)
                 {
                     enemigos[fila, columna] = null;
-                    enemigosRestantes--;
+                    enemigosRestantes--; // Reducir el número de enemigos restantes
+                    Debug.Log("Enemigos restantes: " + enemigosRestantes);  // Depuración aquí
 
-                    // Intentar soltar un power-up
                     FindObjectOfType<PowerUpManager>().IntentarSoltarPowerUp(enemigo.transform.position);
-
                     velocidadActual += aumentoVelocidad;
-                    Destroy(enemigo);
+                    Destroy(enemigo); // Destruir al enemigo
+
                     return;
                 }
             }
         }
+
+
     }
+
+    public void RestarEnemigo()
+    {
+        if (enemigosRestantes <= 0)
+        {
+            Debug.Log("¡Todos los enemigos han sido destruidos!"); // Asegúrate de que se llegue a este punto
+            if (PantallaGanar != null)
+            {
+                PantallaGanar.SetActive(true); // Activar la pantalla de Game Over
+            }
+        }
+    }
+
 }

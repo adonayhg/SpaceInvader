@@ -63,4 +63,15 @@ public class UI : MonoBehaviour
         PlayerPrefs.SetFloat("volumenAudio", volumenMusica);
         AudioListener.volume = sliderMusica.value;
     }
+
+    public void Next()
+    {
+        SceneManager.LoadScene("Minijuego");
+
+    }
+
+    public void ReStart()
+    {
+        SceneManager.LoadScene("Minijuego");
+    }
 }

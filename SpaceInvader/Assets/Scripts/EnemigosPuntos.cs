@@ -10,8 +10,10 @@ public class EnemigosPuntos : MonoBehaviour
     void Start()
     {
         powerUpManager = FindObjectOfType<PowerUpManager>();
+        enemigos = FindObjectOfType<Enemigos>();
     }
 
+    [SerializeField] private Enemigos enemigos;
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("ProyectilJugador")) // Detecta colisión con proyectil del jugador
@@ -25,8 +27,15 @@ public class EnemigosPuntos : MonoBehaviour
                 powerUpManager.IntentarSoltarPowerUp(transform.position);
             }
 
-            // Destruir al enemigo y al proyectil
-            Destroy(other.gameObject); // Destruye el proyectil
+
+
+            Destroy(other.gameObject);// Destruye el proyectil
+            if (enemigos != null)
+            {
+                enemigos.EnemigoDestruido(gameObject); // Se notifica la destrucción
+                enemigos.RestarEnemigo(); // Llamamos a RestarEnemigo para actualizar el contador
+            }
+
             Destroy(gameObject);       // Destruye al enemigo
         }
     }
