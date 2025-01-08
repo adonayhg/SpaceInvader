@@ -19,8 +19,8 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LeanTween.moveY(BotonJugar, 200, 0.5f);
-        LeanTween.moveY(BotonOptions, 145, 0.5f);
+        LeanTween.moveY(BotonJugar, 180, 0.5f);
+        LeanTween.moveY(BotonOptions, 135, 0.5f);
         LeanTween.moveY(BotonExit, 90, 0.5f);
         sliderMusica.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f);
         AudioListener.volume = sliderMusica.value;

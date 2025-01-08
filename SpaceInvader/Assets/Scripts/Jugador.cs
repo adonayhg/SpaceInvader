@@ -88,4 +88,18 @@ public class Jugador : MonoBehaviour
     {
         speed /= 2; // Restaurar la velocidad normal
     }
+
+    public LayerMask wallLayer; // LayerMask para las paredes
+
+    bool IsAtWall(Vector3 posicion, float direccion)
+    {
+        // Realizar un raycast para verificar si hay una pared delante
+        Vector3 direccionRayo = direccion > 0 ? Vector3.right : Vector3.left;
+        RaycastHit hit;
+        if (Physics.Raycast(posicion, direccionRayo, out hit, 1f, wallLayer))
+        {
+            return true; // Pared detectada
+        }
+        return false;
+    }
 }

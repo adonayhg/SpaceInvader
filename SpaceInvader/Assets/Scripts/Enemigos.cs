@@ -85,7 +85,7 @@ public class Enemigos : MonoBehaviour
                     enemigo.transform.rotation = Quaternion.Euler(0, -180, 0);
                     enemigo.transform.position = new Vector3(
                         enemigo.transform.position.x,
-                        0, // Posición Y fija en 0
+                        3, // Posición Y fija en 0
                         enemigo.transform.position.z
                     );
                 }

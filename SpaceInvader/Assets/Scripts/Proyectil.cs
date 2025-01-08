@@ -22,5 +22,13 @@ public class Proyectil : MonoBehaviour
         {
             SceneManager.LoadScene("JuegoNave1");
         }
+        if (other.gameObject.CompareTag("Nave2"))
+        {
+            SceneManager.LoadScene("JuegoNave2");
+        }
+        if (other.gameObject.CompareTag("Nave3"))
+        {
+            SceneManager.LoadScene("JuegoNave3");
+        }
     }
 }
