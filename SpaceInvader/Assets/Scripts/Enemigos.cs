@@ -74,7 +74,6 @@ public class Enemigos : MonoBehaviour
                 {
                     enemigo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                     enemigo.transform.rotation = Quaternion.Euler(0, -90, 90);
-
                 }
                 if (tipoEnemigo == 1)
                 {

@@ -22,11 +22,22 @@ public class Jugador : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         if (invertirControles)
         {
-            horizontal = -horizontal; // Invertir los controles
+            horizontal = -horizontal; // Invertir los controles si está activo
         }
 
+        // Calcular la dirección del movimiento
         Vector3 direction = new Vector3(horizontal, 0, 0);
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+
+        // Comprobar si hay una pared en la dirección del movimiento
+        if (horizontal != 0)
+        {
+            float direccionMovimiento = Mathf.Sign(horizontal); // 1 para derecha, -1 para izquierda
+            if (!IsAtWall(transform.position, direccionMovimiento))
+            {
+                // Mover al jugador solo si no hay una pared
+                transform.Translate(direction * speed * Time.deltaTime, Space.World);
+            }
+        }
 
         // Disparo de proyectiles
         if ((Input.GetKey(KeyCode.Space) || Input.GetButton("Fire2")) && Time.time >= tiempoProximoDisparo)

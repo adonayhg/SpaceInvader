@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
-
     public GameObject BotonJugar;
     public GameObject BotonOptions;
     public GameObject BotonExit;
@@ -15,21 +14,35 @@ public class UI : MonoBehaviour
     public GameObject Sliders;
     public GameObject Logo;
 
+    [SerializeField] Slider sliderMusica;
+    [SerializeField] float volumenMusica;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Animación inicial de los botones
         LeanTween.moveY(BotonJugar, 180, 0.5f);
         LeanTween.moveY(BotonOptions, 135, 0.5f);
         LeanTween.moveY(BotonExit, 90, 0.5f);
+
+        // Configuración inicial del volumen
         sliderMusica.value = PlayerPrefs.GetFloat("volumenAudio", 0.5f);
-        AudioListener.volume = sliderMusica.value;
+        MusicManager musicManager = FindObjectOfType<MusicManager>();
+        if (musicManager != null)
+        {
+            musicManager.SetVolume(sliderMusica.value);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeSlider(float valor)
     {
-        
+        volumenMusica = valor;
+        PlayerPrefs.SetFloat("volumenAudio", volumenMusica);
+
+        MusicManager musicManager = FindObjectOfType<MusicManager>();
+        if (musicManager != null)
+        {
+            musicManager.SetVolume(sliderMusica.value);
+        }
     }
 
     public void Play()
@@ -48,26 +61,15 @@ public class UI : MonoBehaviour
         PopUpOptions.SetActive(false);
         LeanTween.scaleX(PopUpOptions, 0, 0.1f);
     }
+
     public void Exit()
     {
         Application.Quit();
-
-    }
-
-    [SerializeField] Slider sliderMusica;
-    [SerializeField] float volumenMusica;
-
-    public void ChangeSlider(float valor)
-    {
-        volumenMusica = valor;
-        PlayerPrefs.SetFloat("volumenAudio", volumenMusica);
-        AudioListener.volume = sliderMusica.value;
     }
 
     public void Next()
     {
         SceneManager.LoadScene("Minijuego");
-
     }
 
     public void ReStart()
@@ -75,3 +77,4 @@ public class UI : MonoBehaviour
         SceneManager.LoadScene("Minijuego");
     }
 }
+
