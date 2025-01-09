@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  projectilEspecial: {fileID: 4558084828224561504, guid: 59166a25af771ec44b747e7c9fe9f84d,
+    type: 3}
+  enemigos: {fileID: 0}
 --- !u!135 &2243754314317132577
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 30
+  projectilEspecial: {fileID: 0}
+  enemigos: {fileID: 0}
 --- !u!65 &8824682690133566109
 BoxCollider:
   m_ObjectHideFlags: 0

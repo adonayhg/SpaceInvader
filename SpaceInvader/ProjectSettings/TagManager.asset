@@ -12,6 +12,8 @@ TagManager:
   - ProyectilEnemigo
   - ProyectilJugador
   - Bunker
+  - ProyectilEspecial
+  - Explosion
   layers:
   - Default
   - TransparentFX

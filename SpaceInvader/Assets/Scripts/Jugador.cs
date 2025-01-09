@@ -6,12 +6,17 @@ public class Jugador : MonoBehaviour
 {
     public float speed = 20f; // Velocidad normal del jugador
     public GameObject proyectilPrefab;
+    public GameObject proyectilEspecialPrefab;
     public Transform puntoDisparo;
     public Transform puntoDisparo2;
+    public Transform puntoDisparo3;
 
     [Header("Disparo")]
     public float tiempoEntreDisparos = 0.5f; // Tiempo entre disparos
     private float tiempoProximoDisparo = 0f; // Temporizador para el disparo
+
+    public float tiempoEntreDisparosEsp = 5f; // Tiempo entre disparos
+    private float tiempoProximoDisparoEsp = 0f; // Temporizador para el disparo
 
     [Header("Power-Ups")]
     public bool invertirControles = false; // Bandera para invertir los controles
@@ -40,10 +45,16 @@ public class Jugador : MonoBehaviour
         }
 
         // Disparo de proyectiles
-        if ((Input.GetKey(KeyCode.Space) || Input.GetButton("Fire2")) && Time.time >= tiempoProximoDisparo)
+        if ((Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1")) && Time.time >= tiempoProximoDisparo)
         {
             Disparar();
             tiempoProximoDisparo = Time.time + tiempoEntreDisparos; // Actualizar temporizador para el próximo disparo
+        }
+
+        if((Input.GetKey(KeyCode.V) || Input.GetButton("Fire2")) && Time.time >= tiempoProximoDisparoEsp)
+        {
+            DisparoEspecial();
+            tiempoProximoDisparoEsp = Time.time + tiempoEntreDisparosEsp; // Actualizar temporizador para el próximo disparo
         }
     }
 
@@ -51,6 +62,10 @@ public class Jugador : MonoBehaviour
     {
         Instantiate(proyectilPrefab, puntoDisparo.position, puntoDisparo.rotation);
         Instantiate(proyectilPrefab, puntoDisparo2.position, puntoDisparo2.rotation);
+    }
+    void DisparoEspecial()
+    {
+        Instantiate(proyectilEspecialPrefab, puntoDisparo3.position, puntoDisparo3.rotation);
     }
 
     // Detectar colisiones con proyectiles enemigos

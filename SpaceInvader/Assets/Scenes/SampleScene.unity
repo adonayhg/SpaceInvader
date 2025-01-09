@@ -1283,6 +1283,7 @@ MonoBehaviour:
   Logo: {fileID: 1917115180}
   sliderMusica: {fileID: 1542949832}
   volumenMusica: 0.5
+  recordScore: 0
 --- !u!1 &632255410
 GameObject:
   m_ObjectHideFlags: 0

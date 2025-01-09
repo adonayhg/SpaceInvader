@@ -68,6 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 30
+  projectilEspecial: {fileID: 4558084828224561504, guid: 59166a25af771ec44b747e7c9fe9f84d,
+    type: 3}
   enemigos: {fileID: 0}
 --- !u!1 &6388174831420985358
 GameObject:
@@ -167,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 30
+  projectilEspecial: {fileID: 0}
   enemigos: {fileID: 0}
 --- !u!65 &7543674669318878840
 BoxCollider:

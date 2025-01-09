@@ -16,6 +16,8 @@ public class UI : MonoBehaviour
 
     [SerializeField] Slider sliderMusica;
     [SerializeField] float volumenMusica;
+    [SerializeField] float recordScore;
+
 
     void Start()
     {
@@ -31,7 +33,10 @@ public class UI : MonoBehaviour
         {
             musicManager.SetVolume(sliderMusica.value);
         }
+        recordScore = PlayerPrefs.GetInt("Player Score");
+
     }
+
 
     public void ChangeSlider(float valor)
     {

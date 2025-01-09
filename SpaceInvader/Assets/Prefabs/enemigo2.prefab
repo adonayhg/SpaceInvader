@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  projectilEspecial: {fileID: 4558084828224561504, guid: 59166a25af771ec44b747e7c9fe9f84d,
+    type: 3}
   enemigos: {fileID: 0}
 --- !u!95 &-6839519337211285532
 Animator:
